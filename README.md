@@ -1,29 +1,21 @@
-# TimeWork Web
+# timework
 
-This is the front end web for the Timework Solutiuon app in progress 0%
+> Time Work Register Program (WEB)
 
-## Requirements
-``` PHP
-* Any Code Editor
+## Build Setup
 
-* Node >= 6
+``` bash
+# install dependencies
+npm install
 
-* Vue-Cli Installed
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
 ```
 
-## Donate
- ``` PHP
- Pending
- ```
-
-## License
-
-### Apache 2.0 License
-
-Ref to license [Here](http://github.com/webminapps/timework-web/license)
-
-## Credits
-
-``` PHP
- Pending
-```
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
