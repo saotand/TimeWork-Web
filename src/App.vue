@@ -26,7 +26,7 @@
     </v-navigation-drawer>
     <v-toolbar
       app
-      :clipped-left="clipped"
+      :clipped-left="clipped" class="primary" dark
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn icon @click.stop="miniVariant = !miniVariant">
@@ -74,7 +74,7 @@ export default {
   data () {
     return {
       clipped: false,
-      drawer: true,
+      drawer: false,
       fixed: false,
       items: [{
         icon: 'bubble_chart',
