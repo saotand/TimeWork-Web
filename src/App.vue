@@ -54,12 +54,28 @@
       fixed
       app
     >
-      <v-list>
+    <!--  <v-list>
         <v-list-tile @click="right = !right">
           <v-list-tile-action>
             <v-icon>compare_arrows</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
+        </v-list-tile>
+      </v-list>-->
+      <v-list>
+        <v-list-tile
+          value="true"
+          v-for="(item, i) in items"
+          :key="i"
+        >
+          <v-list-tile-action>
+            <v-icon v-html="item.icon"></v-icon>
+
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="item.title"></v-list-tile-title>
+            s
+          </v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -73,13 +89,24 @@
 export default {
   data () {
     return {
-      clipped: false,
+      clipped: true,
       drawer: false,
-      fixed: false,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
+      fixed: true,
+
+      items: [
+        {
+          icon: 'dashboard',
+          title: 'Inicio'
+        },
+        {
+          icon: 'list',
+          title: 'Tareas'
+        },
+        {
+          icon: 'chrome_reader_mode',
+          title: 'Trabajos'
+        }
+      ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
