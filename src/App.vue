@@ -1,19 +1,11 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      persistent
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
-      enable-resize-watcher
-      fixed
-      app
-    >
+    <v-navigation-drawer persistent :mini-variant="miniVariant" :clipped="clipped" v-model="drawer" enable-resize-watcher fixed app>
       <v-list>
         <v-list-tile
           value="true"
           v-for="(item, i) in items"
-          :key="i"
+          :key="i" :to="item.url"
         >
           <v-list-tile-action>
             <v-icon v-html="item.icon"></v-icon>
@@ -24,10 +16,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar
-      app
-      :clipped-left="clipped" class="primary" dark
-    >
+    <v-toolbar fixed app :clipped-left="clipped" class="" dark>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
@@ -51,6 +40,8 @@
       temporary
       :right="right"
       v-model="rightDrawer"
+      :mini-variant="miniVariant"
+      :clipped="clipped"
       fixed
       app
     >
@@ -66,21 +57,20 @@
         <v-list-tile
           value="true"
           v-for="(item, i) in items"
-          :key="i"
+          :key="i" :to="item.url"
         >
           <v-list-tile-action>
             <v-icon v-html="item.icon"></v-icon>
 
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-            s
+            <v-list-tile-title v-text="item.title" ></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
+      <span>&copy; 2018</span>
     </v-footer>
   </v-app>
 </template>
@@ -96,15 +86,18 @@ export default {
       items: [
         {
           icon: 'dashboard',
-          title: 'Inicio'
+          title: 'Inicio',
+          url:'/'
         },
         {
           icon: 'list',
-          title: 'Tareas'
+          title: 'Tareas',
+          url:'/task'
         },
         {
           icon: 'chrome_reader_mode',
-          title: 'Trabajos'
+          title: 'Trabajos',
+          url:'/working'
         }
       ],
       miniVariant: false,
@@ -116,3 +109,16 @@ export default {
   name: 'App'
 }
 </script>
+
+<style>
+a div.list__tile__content div.list__tile__title{
+  color: grey !important;
+}
+a.list__tile--active div.list__tile__content div.list__tile__title{
+  color:#1972d2 !important;
+
+}
+a.list__tile--active{
+  background-color: #cccccc !important;
+}
+</style>
