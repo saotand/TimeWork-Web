@@ -10,7 +10,7 @@
                 <v-spacer></v-spacer>
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form @submit.prevent="onSignUp">
                   <v-text-field prepend-icon="person" name="login" required label="Login" type="text" v-model="user"> </v-text-field>
                   <v-text-field prepend-icon="lock" name="password" required label="Password" id="password" type="password" v-model="pass"></v-text-field>
                   <v-text-field prepend-icon="lock" name="confirmpassword" required label="Confirm Password" id="confirmpassword" type="password" v-model="cpass" :rules="[comparePasswords]"></v-text-field>
@@ -41,6 +41,7 @@ export default {
     onSignUp () {
       let data = { 'user': this.user, 'pass': this.pass }
       console.log(data)
+      this.$store.dispatch('signUserUp', data)
     }
   },
   computed: {

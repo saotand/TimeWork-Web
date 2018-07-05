@@ -27,11 +27,16 @@
       <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>remove</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
+     <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-spacer></v-spacer><v-toolbar-items>
+       <v-btn v-show="rightMenu" flat @click.stop="rightDrawer = !rightDrawer">
         <v-icon>menu</v-icon>
       </v-btn>
+
+          <v-btn flat v-show="!rightMenu" to="/signin">Sign In</v-btn>
+          <v-btn flat v-show="!rightMenu" to="/signup">Sign Up</v-btn>
+          </v-toolbar-items>
+
     </v-toolbar>
     <v-content>
       <router-view/>
@@ -82,26 +87,26 @@ export default {
       clipped: true,
       drawer: false,
       fixed: true,
-
       items: [
         {
           icon: 'dashboard',
           title: 'Inicio',
-          url:'/'
+          url: '/'
         },
         {
           icon: 'list',
           title: 'Tareas',
-          url:'/task'
+          url: '/task'
         },
         {
           icon: 'chrome_reader_mode',
           title: 'Trabajos',
-          url:'/working'
+          url: '/working'
         }
       ],
       miniVariant: false,
       right: true,
+      rightMenu: false,
       rightDrawer: false,
       title: 'Vuetify.js'
     }
