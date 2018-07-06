@@ -17,8 +17,22 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
+    checkUser ({ commit }, payload) {
+      let sender = {'user': payload.user}
+      Axios.post('/user/checkuser', sender)
+      .catch(error => {
+        console.log(error)
+      })
+      .then(response => {
+        console.log(response)
+      })
+    },
     signUserUp ({ commit }, payload) {
       Axios.post('/user/new', payload)
+      .catch(error => {
+        // handle error
+        console.log(error)
+      })
       .then(response => {
         alert(response)
       })

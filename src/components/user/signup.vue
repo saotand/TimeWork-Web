@@ -11,9 +11,10 @@
               </v-toolbar>
               <v-card-text>
                 <v-form @submit.prevent="onSignUp">
-                  <v-text-field prepend-icon="person" name="login" required label="Login" type="text" v-model="user"> </v-text-field>
-                  <v-text-field prepend-icon="lock" name="password" required label="Password" id="password" type="password" v-model="pass"></v-text-field>
-                  <v-text-field prepend-icon="lock" name="confirmpassword" required label="Confirm Password" id="confirmpassword" type="password" v-model="cpass" :rules="[comparePasswords]"></v-text-field>
+                  <v-text-field required prepend-icon="person" name="login"  label="Login" type="text" v-model="user"> </v-text-field>
+                  <v-text-field required prepend-icon="mail" name="email" label="email" type="email" v-model="email" :rules="[checkemail]"> </v-text-field>
+                  <v-text-field required prepend-icon="lock" name="password"  label="Password" id="password" type="password" v-model="pass"></v-text-field>
+                  <v-text-field required prepend-icon="lock" name="confirmpassword"  label="Confirm Password" id="confirmpassword" type="password" v-model="cpass" :rules="[comparePasswords]"></v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -32,9 +33,11 @@
 export default {
   data () {
     return {
+      name: '',
       user: '',
       pass: '',
-      cpass: ''
+      cpass: '',
+      email: ''
     }
   },
   methods: {
@@ -47,6 +50,10 @@ export default {
   computed: {
     comparePasswords () {
       return this.pass !== this.cpass ? 'Passwords no Match' : null
+    },
+    checkemail () {
+      this.$store.dispatch('checkUser', { 'user': this.user })
+      return 'Correo electronico usado'
     }
   }
 }
