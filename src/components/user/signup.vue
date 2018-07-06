@@ -11,8 +11,8 @@
               </v-toolbar>
               <v-card-text>
                 <v-form @submit.prevent="onSignUp">
-                  <v-text-field required prepend-icon="person" name="login"  label="Login" type="text" v-model="user"> </v-text-field>
-                  <v-text-field required prepend-icon="mail" name="email" label="email" type="email" v-model="email" :rules="[checkemail]"> </v-text-field>
+                  <v-text-field required prepend-icon="person" name="login"  label="Login" type="text" v-model="user" :rules="[checkuser]"> </v-text-field>
+                  <v-text-field required prepend-icon="mail" name="email" label="email" type="email" v-model="email"> </v-text-field>
                   <v-text-field required prepend-icon="lock" name="password"  label="Password" id="password" type="password" v-model="pass"></v-text-field>
                   <v-text-field required prepend-icon="lock" name="confirmpassword"  label="Confirm Password" id="confirmpassword" type="password" v-model="cpass" :rules="[comparePasswords]"></v-text-field>
                 </v-form>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import Axios from 'axios'
 export default {
   data () {
     return {
@@ -42,18 +43,35 @@ export default {
   },
   methods: {
     onSignUp () {
-      let data = { 'user': this.user, 'pass': this.pass }
+      let data = { 'user': this.user, 'pass': this.pass, 'email': this.email, 'name': this.name }
       console.log(data)
       this.$store.dispatch('signUserUp', data)
+    },
+    checkDuplicated (value, field) {
+      // console.log({'v': value, 'field': field})
+      let sender = { value: value }
+      console.log(sender)
+      let exists
+      Axios.post('/user/checkuser', sender)
+      .catch(error => {
+        console.log(error)
+      })
+      .then(response => {
+        exists = response.data.data
+      })
+      if (exists) {
+        return 'Nombre de usuario no disponible'
+      } else {
+        return ''
+      }
     }
   },
   computed: {
     comparePasswords () {
-      return this.pass !== this.cpass ? 'Passwords no Match' : null
+      return this.pass !== this.cpass ? 'Las Contraseñas no coinciden' : null
     },
-    checkemail () {
-      this.$store.dispatch('checkUser', { 'user': this.user })
-      return 'Correo electronico usado'
+    checkuser () {
+      console.log(this.checkDuplicated(this.user, 'user'))
     }
   }
 }

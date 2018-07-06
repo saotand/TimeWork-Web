@@ -34,8 +34,9 @@ export const store = new Vuex.Store({
         console.log(error)
       })
       .then(response => {
-        alert(response)
+        console.log(response)
       })
+
       /*
       Axios.post('user/new', payload, {headers: {Authorization: 'Bearer ' + 'token'}})
       .then(response => {
