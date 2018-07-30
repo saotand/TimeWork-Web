@@ -3,22 +3,28 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import Vuex from 'vuex'
+import Axios from 'axios'
+import { store } from './store'
 
 Vue.use(Vuetify, { theme: {
-  primary: '#ee44aa',
+  primary: '#166cad',
   secondary: '#424242',
   accent: '#82B1FF',
-  error: '#FF5252',
+  error: '#721504',
   info: '#2196F3',
-  success: '#4CAF50',
-  warning: '#FFC107'
+  success: '#096330',
+  warning: '#c67000'
 }})
 
 Vue.config.productionTip = false
+
+Vue.use(Vuex, Axios)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

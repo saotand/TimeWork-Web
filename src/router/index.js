@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import homepage from '@/views/home'
-import logincomponent from '@/views/login'
+import homepage from '@/components/home'
+import signup from '@/components/register/signup'
+import authguard from './authguard'
 
 Vue.use(Router)
 
@@ -10,12 +11,14 @@ export default new Router({
     {
       path: '/',
       name: 'homepage',
-      component: homepage
+      component: homepage,
+      beforeEnter: authguard
     },
     {
       path: '/',
-      name: 'login',
-      component: logincomponent
+      name: 'Signup',
+      component: signup
     }
-  ]
+  ],
+  mode: 'history'
 })

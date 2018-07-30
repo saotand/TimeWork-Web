@@ -10,17 +10,19 @@
       app
     >
       <v-list>
-        <v-list-tile
+        <v-list-tile :to="item.url"
           value="true"
-          v-for="(item, i) in items"
+          v-for="(item, i) in menu"
           :key="i"
         >
-          <v-list-tile-action>
+
+          <v-list-tile-action >
             <v-icon v-html="item.icon"></v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
+            <v-list-tile-title v-text="item.title" ></v-list-tile-title>
           </v-list-tile-content>
+
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -74,37 +76,49 @@ export default {
   name: 'App',
   data () {
     return {
-      authenticated: false,
-      mockAccount: {
-        username: 'nraboy',
-        password: 'password'
-      },
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'TimeWork',
+      clipped: true,
+      drawer: true,
+      fixed: false,
+      menu: [
+        {
+          icon: 'dashboard',
+          title: 'Escritorio',
+          url: '/'
+        },
+        {
+          icon: 'star',
+          title: 'Mis Asignaciones',
+          url: '/tasks'
+        },
+        {
+          icon: 'chat_bubble',
+          title: 'Comentarios',
+          url: '/comment'
+        }
+      ],
+      profile: [{
+
+      }]
     }
   },
   mounted () {
-    if (!this.authenticated) {
-      this.$router.replace({ name: 'login' })
-    }
+  },
+  computed: {
+
   },
   methods: {
-    setAuthenticated (status) {
-      this.authenticated = status
-    },
-    logout () {
-      this.authenticated = false
-    }
   }
 
 }
 </script>
+
+
+<style>
+div.a.v-list__title--active{
+  color: #808080;
+}
+</style>
