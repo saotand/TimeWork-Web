@@ -71,8 +71,14 @@
 
 <script>
 export default {
+  name: 'App',
   data () {
     return {
+      authenticated: false,
+      mockAccount: {
+        username: 'nraboy',
+        password: 'password'
+      },
       clipped: false,
       drawer: true,
       fixed: false,
@@ -86,6 +92,19 @@ export default {
       title: 'Vuetify.js'
     }
   },
-  name: 'App'
+  mounted () {
+    if (!this.authenticated) {
+      this.$router.replace({ name: 'login' })
+    }
+  },
+  methods: {
+    setAuthenticated (status) {
+      this.authenticated = status
+    },
+    logout () {
+      this.authenticated = false
+    }
+  }
+
 }
 </script>
