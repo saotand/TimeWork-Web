@@ -1,7 +1,7 @@
 {
   "name": "timework",
   "version": "1.0.0",
-  "description": "Time Work Register Program (WEB)",
+  "description": "Timework FrontEnd",
   "author": "David Salinas <saotand@gmail.com>",
   "private": true,
   "scripts": {
