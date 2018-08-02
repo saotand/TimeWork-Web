@@ -27,15 +27,9 @@
                     </v-layout>
 
                     <v-layout row>
-                    <v-flex xs12>
-                        <v-text-field name="cpass" label="Confirmar Contraseña" id="cpass" v-model="cpass" type="password"></v-text-field>
-                    </v-flex>
-                    </v-layout>
-
-                    <v-layout row>
                         <v-flex xs12>
-                            <v-btn class="primary" centered type="submit">Registrame</v-btn>
-                            <v-btn class="success">Iniciar Sesion</v-btn>
+                            <v-btn class="primary" centered type="submit">Entrar</v-btn>
+                            <v-btn class="primary" left centered type="submit">Registrate</v-btn>
                         </v-flex>
                     </v-layout>
 
@@ -62,6 +56,9 @@ export default {
       // Vuex
       console.log({ user: this.user, pass: this.pass, cpass: this.cpass })
     }
+  },
+  mounted () {
+    this.$parent.toolbarapp = false
   }
 }
 </script>

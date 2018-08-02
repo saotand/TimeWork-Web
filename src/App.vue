@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <v-navigation-drawer :mini-variant="miniVariant" :clipped="clipped" v-model="drawer" enable-resize-watcher fixed app>
       <v-list>
         <v-list-tile v-for="(item, i) in menu" :key="i" :to="item.url">
@@ -11,11 +11,13 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar app :clipped-left="clipped">
+    <v-toolbar v-model="toolbarapp" app :clipped-left="clipped">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
+      <div class="minispace">
+      <v-btn icon @click.stop="miniVariant = !miniVariant" v-if="drawer">
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
       </v-btn>
+      </div>
       <!--
       <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>web</v-icon>
@@ -25,9 +27,9 @@
         <v-icon>remove</v-icon>
       </v-btn>-->
       <v-toolbar-title>
-        <v-list-tile-avatar>
-          <img src="@/assets/ologo.png">
-        </v-list-tile-avatar> {{title}}
+        <v-toolbar-side-icon big>
+          <img src="@/assets/logo_title.png" width="100%">
+        </v-toolbar-side-icon> {{title}}
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn flat fab centered small="" @click.stop="rightDrawer = !rightDrawer">
@@ -60,6 +62,7 @@ export default {
   name: 'App',
   data () {
     return {
+      toolbarapp: false,
       miniVariant: false,
       right: true,
       rightDrawer: false,
@@ -82,6 +85,16 @@ export default {
           icon: 'chat_bubble',
           title: 'Comentarios',
           url: '/comment'
+        },
+        {
+          icon: 'account_circle',
+          title: 'Iniciar',
+          url: '/signin'
+        },
+        {
+          icon: 'how_to_reg',
+          title: 'Registrarse',
+          url: '/signup'
         }
       ],
       menur: [
@@ -106,7 +119,7 @@ export default {
 
 
 <style>
-div.a.v-list__title--active{
-  color: #808080;
+.minispace{
+  width:30px;
 }
 </style>

@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Axios from 'axios'
 
-Vue.use(Vuex)
+Vue.use(Vuex, Axios)
 
 export const store = new Vuex.Store({
   state: {
