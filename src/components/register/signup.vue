@@ -5,7 +5,7 @@
           <v-card>
             <v-card-text>
                 <v-container>
-                  <form @submit.prevent="onSignUp()">
+                  <form @submit.prevent="onSignUp">
 
                     <v-layout row>
                       <v-flex xs12><center>
@@ -16,7 +16,13 @@
 
                     <v-layout row>
                       <v-flex xs12>
-                        <v-text-field name="usuario" label="Usuario" id="user" v-model="email" type="text" required></v-text-field>
+                        <v-text-field name="user" label="Usuario" id="user" v-model="user" type="text" required></v-text-field>
+                      </v-flex>
+                    </v-layout>
+
+                    <v-layout row>
+                      <v-flex xs12>
+                        <v-text-field name="email" label="Correo electrónico" id="email" v-model="email" type="email" required></v-text-field>
                       </v-flex>
                     </v-layout>
 
@@ -28,14 +34,15 @@
 
                     <v-layout row>
                     <v-flex xs12>
-                        <v-text-field name="cpass" label="Confirmar Contraseña" id="cpass" v-model="cpass" type="password"></v-text-field>
+                        <v-text-field name="cpass" label="Confirmar Contraseña" id="cpass" v-model="cpass" :rules="[comparePasswords]" type="password"></v-text-field>
                     </v-flex>
                     </v-layout>
 
                     <v-layout row>
-                        <v-flex xs12>
-                            <v-btn class="primary" centered type="submit">Registrame</v-btn>
-                            <v-btn class="success">Iniciar Sesion</v-btn>
+                        <v-flex xs6>
+                          <v-btn block class="primary" centered type="submit" :disabled="formValid">Registrame</v-btn>
+
+                          <v-btn block class="success">Iniciar Sesion</v-btn>
                         </v-flex>
                     </v-layout>
 
@@ -49,18 +56,32 @@
 </template>
 
 <script>
+
 export default {
   data () {
     return {
-      user: '',
-      pass: '',
-      cpass: ''
+      user: 'userdemo',
+      email: 'email@demo.com',
+      pass: 'd0708aca',
+      cpass: 'd0708aca',
+      name: 'nombredemo',
+      last: 'apellidodemo',
+      birth: '2018-01-01'
+    }
+  },
+  computed: {
+    comparePasswords () {
+      return this.pass !== this.cpass ? 'Las Contraseñas no coinciden' : null
+    },
+    validForm () {
+      return this.user && this.pass && this.cpass && this.name && this.last && this.birth;
     }
   },
   methods: {
     onSignUp () {
+      this.$store.dispatch('signUserUp', { user: this.user, email: this.email, pass: this.pass, name: this.name, last: this.last, birth: this.birth })
       // Vuex
-      console.log({ user: this.user, pass: this.pass, cpass: this.cpass })
+      // console.log({ user: this.user, pass:this.pass,cpass: this.cpass})
     }
   }
 }
