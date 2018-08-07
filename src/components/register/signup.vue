@@ -39,15 +39,18 @@
                     </v-layout>
 
                     <v-layout row>
-                        <v-flex xs6>
-                          <v-btn block class="primary" centered type="submit" :disabled="formValid">Registrame</v-btn>
-
+                        <v-flex xs6 class="mr1">
+                          <v-btn block class="primary" centered type="submit" :disabled="validForm">Registrame</v-btn>
+                        </v-flex>
+                        <v-flex xs6 class="ml1">
                           <v-btn block class="success">Iniciar Sesion</v-btn>
                         </v-flex>
                     </v-layout>
 
                   </form>
               </v-container>
+
+              {{ this.validForm }}
           </v-card-text>
         </v-card>
       </v-flex>
@@ -74,7 +77,7 @@ export default {
       return this.pass !== this.cpass ? 'Las Contraseñas no coinciden' : null
     },
     validForm () {
-      return this.user && this.pass && this.cpass && this.name && this.last && this.birth;
+      return !(this.user !== '' && this.email !== '' && this.pass !== '' && this.cpass !== '' && this.name !== '' && this.email !== '')
     }
   },
   methods: {

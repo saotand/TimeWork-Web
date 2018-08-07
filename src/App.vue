@@ -69,47 +69,15 @@ export default {
       title: 'TimeWork',
       clipped: true,
       drawer: true,
-      fixed: false,
-      menu: [
-        {
-          icon: 'dashboard',
-          title: 'Escritorio',
-          url: '/'
-        },
-        {
-          icon: 'star',
-          title: 'Mis Asignaciones',
-          url: '/tasks'
-        },
-        {
-          icon: 'chat_bubble',
-          title: 'Comentarios',
-          url: '/comment'
-        },
-        {
-          icon: 'account_circle',
-          title: 'Iniciar',
-          url: '/signin'
-        },
-        {
-          icon: 'how_to_reg',
-          title: 'Registrarse',
-          url: '/signup'
-        }
-      ],
-      menur: [
-        {
-          title: 'My Perfil',
-          url: '/profile',
-          icon: 'face'
-        }
-      ]
+      fixed: false
     }
   },
   mounted () {
   },
   computed: {
-
+    menu () {
+      return this.$store.getters.getMenu
+    }
   },
   methods: {
   }
