@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer :mini-variant="miniVariant" :clipped="clipped" v-model="drawer" enable-resize-watcher fixed app>
+    <v-navigation-drawer @input="alert('input')" :mini-variant="ideData.miniVariant" :clipped="ideData.clipped" v-model="ideData.drawer" enable-resize-watcher fixed clipped app>
       <v-list>
         <v-list-tile v-for="(item, i) in menu" :key="i" :to="item.url">
           <v-list-tile-action>
@@ -11,11 +11,11 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar v-model="toolbarapp" app :clipped-left="clipped">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+    <v-toolbar v-if="ideData.toolbarapp" app :clipped-left="ideData.clipped">
+      <v-toolbar-side-icon @click.stop="swDrawer"></v-toolbar-side-icon>
       <div class="minispace">
-      <v-btn icon @click.stop="miniVariant = !miniVariant" v-if="drawer">
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
+      <v-btn icon @click.stop="swMinivariant" v-if="ideData.drawer">
+        <v-icon v-html="ideData.miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
       </v-btn>
       </div>
       <!--
@@ -29,20 +29,31 @@
       <v-toolbar-title>
         <v-toolbar-side-icon big>
           <img src="@/assets/logo_title.png" width="100%">
-        </v-toolbar-side-icon> {{title}}
+        </v-toolbar-side-icon> {{ideData.title}}
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn flat fab centered small="" @click.stop="rightDrawer = !rightDrawer">
+      <v-btn flat fab centered small="" @click.stop="toggleRightDrawer">
           <img src="@/assets/ologo.png" width="100%">
       </v-btn>
     </v-toolbar>
     <v-content>
       <router-view/>
     </v-content>
-    <v-navigation-drawer temporary clipped :right="right" v-model="rightDrawer" app >
+    <v-navigation-drawer temporary clipped :right="ideData.right" v-model="ideData.rightDrawer" app >
       <v-list>
 
-        <v-list-tile v-for="(itemr, i) in menur" :key="i" :to="itemr.url">
+        <v-list-tile  @click.stop="toggleRightDrawer">
+        <v-list-tile-action>
+          <v-btn flat fab centered small="">
+              <img src="@/assets/ologo.png" width="100%"> 
+          </v-btn></v-list-tile-action>
+          <v-list-tile-title>
+          Mi Cuenta
+          <v-spacer></v-spacer>&times;
+          </v-list-tile-title>
+        </v-list-tile>
+      
+        <v-list-tile v-for="(itemr, i) in ideData.menur" :key="i" :to="itemr.url">
           <v-list-tile-action>
             <v-icon>{{itemr.icon}}</v-icon>
           </v-list-tile-action>
@@ -51,7 +62,7 @@
 
       </v-list>
     </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
+    <v-footer :fixed="ideData.fixed" app>
       <span>&copy; 2017</span>
     </v-footer>
   </v-app>
@@ -62,14 +73,7 @@ export default {
   name: 'App',
   data () {
     return {
-      toolbarapp: false,
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'TimeWork',
-      clipped: true,
-      drawer: true,
-      fixed: false
+
     }
   },
   mounted () {
@@ -77,9 +81,26 @@ export default {
   computed: {
     menu () {
       return this.$store.getters.getMenu
+    },
+    ideData () {
+      return this.$store.getters.getIDEdata
     }
   },
   methods: {
+    toggleIDE () {
+      this.$store.dispatch('toggleIDE')
+    },
+    swDrawer () {
+      this.$store.dispatch('toggleDrawer')
+      // drawer = !drawer
+    },
+    swMinivariant () {
+      this.$store.dispatch('toggleMiniVariant')
+      // miniVariant = !miniVariant
+    },
+    toggleRightDrawer () {
+      this.$store.dispatch('toggleRDrawer')
+    }
   }
 
 }

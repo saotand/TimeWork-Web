@@ -16,7 +16,7 @@
 
                     <v-layout row>
                       <v-flex xs12>
-                        <v-text-field name="usuario" label="Usuario" id="user" v-model="email" type="text" required></v-text-field>
+                        <v-text-field name="usuario" label="Usuario" id="user" v-model="user" type="text" required></v-text-field>
                       </v-flex>
                     </v-layout>
 
@@ -27,9 +27,11 @@
                     </v-layout>
 
                     <v-layout row>
-                        <v-flex xs12>
-                            <v-btn class="primary" centered type="submit">Entrar</v-btn>
-                            <v-btn class="primary" left centered type="submit">Registrate</v-btn>
+                        <v-flex xs6 class="mr-1">
+                            <v-btn block class="success" centered type="submit">Entrar</v-btn>
+                        </v-flex>
+                        <v-flex xs6 class="ml-1">
+                            <v-btn block class="primary" to="/signup" left centered type="submit">Registrate</v-btn>
                         </v-flex>
                     </v-layout>
 
@@ -46,19 +48,21 @@
 export default {
   data () {
     return {
-      user: '',
-      pass: '',
-      cpass: ''
+      user: 'admin',
+      pass: 'd0708aca'
     }
   },
   methods: {
     onSignUp () {
       // Vuex
-      console.log({ user: this.user, pass: this.pass, cpass: this.cpass })
+      let userdata = { user: this.user, pass: this.pass }
+      console.log(userdata)
+      this.$store.dispatch('userSignIn', userdata)
     }
   },
-  mounted () {
-    this.$parent.toolbarapp = false
+  mounted () {},
+  created () {
+    this.$store.dispatch('hideIDE')
   }
 }
 </script>
