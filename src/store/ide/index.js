@@ -83,6 +83,15 @@ export default ({
     },
     tgMiniVariant (state) {
       state.miniVariant = !state.miniVariant
+    },
+    setLoading (state, payload) {
+      state.loading = payload
+    },
+    setError (state, payload) {
+      state.error = payload
+    },
+    clearError (state) {
+      state.error = null
     }
   },
   actions: {
@@ -104,10 +113,19 @@ export default ({
     toggleMiniVariant ({commit}) {
       alert('mi mini')
       commit('tgMiniVariant')
+    },
+    clearError ({commit}) {
+      commit('clearError')
     }
 
   },
   getters: {
+    loading (state) {
+      return state.loading
+    },
+    error (state) {
+      return state.error
+    },
     getMenu (state) {
       return state.menu
     },

@@ -12,7 +12,9 @@ export default ({
   },
   actions: {
     signUserUp ({commit}, payload) {
-      Axios.post('/user/new', {
+      commit('setLoading', true)
+      commit('clearError')
+      Axios.post('/user/new?format=json', {
         user: payload.user,
         email: payload.email,
         pass: payload.pass,
@@ -22,23 +24,37 @@ export default ({
         access: payload.access,
         active: payload.active
       })
-      .then(function (response) {
-        console.log(response)
+      .then(user => {
+        commit('setLoading', false)
+        console.log(user.data)
       })
-      .catch(function (error) {
-        console.log(error)
+      .catch(myerror => {
+        let error = myerror.response
+        let errmessage = error.data.error.message
+        commit('setLoading', false)
+        commit('setError', errmessage)
       })
     },
     signUserIn ({commit}, payload) {
-      Axios.post('/user/login', payload)
+      let logindata = { 'user': payload.user, 'pass': payload.pass }
+      commit('setLoading', true)
+      commit('clearError')
+      Axios.post('/login?format=json', logindata)
       .then(response => {
-        console.log(response)
+        commit('setLoading', false)
+        console.log(response.data.error)
       })
-      .catch(error => {
-        console.log(error)
+      .catch(myerror => {
+        let error = myerror.response
+        let errmessage = error.data.error.message
+        commit('setLoading', false)
+        commit('setError', errmessage)
       })
     }
   },
   getters: {
+    getUser (state) {
+      return state.user
+    }
   }
 })

@@ -1,5 +1,11 @@
 <template>
   <v-container>
+    <v-layout row v-if="error">
+      <v-flex xs12 sm6 offset-sm3>
+        <app-alert @dismissed="onDismissed" :text="error">
+        </app-alert>
+      </v-flex>
+    </v-layout>
     <v-layout row>
         <v-flex xs12 sm6 offset-sm3>
           <v-card>
@@ -46,7 +52,7 @@
                           <v-btn to="/signin" block class="success">Iniciar Sesion</v-btn>
                         </v-flex>
                     </v-layout>
-                    
+
                   </form>
               </v-container>
           </v-card-text>
@@ -76,16 +82,25 @@ export default {
     },
     validForm () {
       return !(this.user !== '' && this.email !== '' && this.pass !== '' && this.cpass !== '' && this.name !== '' && this.email !== '' && this.comparePasswords === null)
+    },
+    loading () {
+      return this.$store.getters.loading
+    },
+    error () {
+      return this.$store.getters.error
     }
   },
   methods: {
     onSignUp () {
-      this.$store.dispatch('signUserUp', { user: this.user, email: this.email, pass: this.pass, name: this.name, last: this.last, birth: this.birth })
-      // Vuex
-      // console.log({ user: this.user, pass:this.pass,cpass: this.cpass})
+      let newuserdata = { user: this.user, email: this.email, pass: this.pass, name: this.name, last: this.last, birth: this.birth }
+      this.$store.dispatch('signUserUp', newuserdata)
     },
     toggleIDE () {
       this.$store.dispatch('hideIDE')
+    },
+    onDismissed () {
+      console.log('dismissed Alert')
+      this.$store.dispatch('clearError')
     }
   },
   created () {

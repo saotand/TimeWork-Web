@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer @input="alert('input')" :mini-variant="ideData.miniVariant" :clipped="ideData.clipped" v-model="ideData.drawer" enable-resize-watcher fixed clipped app>
+    <v-navigation-drawer @input="alert('input')" :mini-variant="ideData.miniVariant" :clipped="ideData.clipped" v-model="ideData.drawer" enable-resize-watcher fixed app>
       <v-list>
         <v-list-tile v-for="(item, i) in menu" :key="i" :to="item.url">
           <v-list-tile-action>
@@ -45,14 +45,14 @@
         <v-list-tile  @click.stop="toggleRightDrawer">
         <v-list-tile-action>
           <v-btn flat fab centered small="">
-              <img src="@/assets/ologo.png" width="100%"> 
+              <img src="@/assets/ologo.png" width="100%">
           </v-btn></v-list-tile-action>
           <v-list-tile-title>
           Mi Cuenta
           <v-spacer></v-spacer>&times;
           </v-list-tile-title>
         </v-list-tile>
-      
+
         <v-list-tile v-for="(itemr, i) in ideData.menur" :key="i" :to="itemr.url">
           <v-list-tile-action>
             <v-icon>{{itemr.icon}}</v-icon>
@@ -111,4 +111,42 @@ export default {
 .minispace{
   width:30px;
 }
+
+ .custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+  }
+  @-moz-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-webkit-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @-o-keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes loader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
 </style>

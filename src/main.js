@@ -6,6 +6,7 @@ import 'vuetify/dist/vuetify.min.css'
 import Vuex from 'vuex'
 import Axios from 'axios'
 import { store } from './store'
+import AlertCmp from './components/shared/alert'
 
 Vue.use(Vuetify, { theme: {
   primary: '#166cad',
@@ -18,8 +19,8 @@ Vue.use(Vuetify, { theme: {
 }})
 
 Vue.config.productionTip = false
-
 Vue.use(Vuex, Axios)
+Vue.component('app-alert', AlertCmp)
 
 /* eslint-disable no-new */
 new Vue({
