@@ -88,15 +88,22 @@ export default {
     },
     error () {
       return this.$store.getters.error
+    },
+    account () {
+      return this.$store.getters.account
+    }
+  },
+  watch: {
+    account (value) {
+      if (value !== null && value !== undefined) {
+        this.$router.push('/')
+      }
     }
   },
   methods: {
     onSignUp () {
       let newuserdata = { user: this.user, email: this.email, pass: this.pass, name: this.name, last: this.last, birth: this.birth }
       this.$store.dispatch('signUserUp', newuserdata)
-    },
-    toggleIDE () {
-      this.$store.dispatch('hideIDE')
     },
     onDismissed () {
       console.log('dismissed Alert')
@@ -108,3 +115,4 @@ export default {
   }
 }
 </script>
+

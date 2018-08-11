@@ -24,21 +24,6 @@ export default ({
     // Items del menu
     menu: [
       {
-        icon: 'dashboard',
-        title: 'Escritorio',
-        url: '/'
-      },
-      {
-        icon: 'star',
-        title: 'Mis Asignaciones',
-        url: '/tasks'
-      },
-      {
-        icon: 'chat_bubble',
-        title: 'Comentarios',
-        url: '/comment'
-      },
-      {
         icon: 'account_circle',
         title: 'Iniciar',
         url: '/signin'

@@ -1,6 +1,6 @@
 <template>
     <div>
-        Welcome to this Section
+        Comentarios
     </div>
 </template>
 

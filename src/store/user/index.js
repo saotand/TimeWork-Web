@@ -3,7 +3,7 @@ Axios.defaults.baseURL = 'http://api.core'
 
 export default ({
   state: {
-    user: false
+    user: null
   },
   mutations: {
     setUser (state, payload) {
@@ -24,9 +24,9 @@ export default ({
         access: payload.access,
         active: payload.active
       })
-      .then(user => {
+      .then(response => {
         commit('setLoading', false)
-        console.log(user.data)
+        console.log(response.data)
       })
       .catch(myerror => {
         let error = myerror.response
@@ -53,7 +53,7 @@ export default ({
     }
   },
   getters: {
-    getUser (state) {
+    account (state) {
       return state.user
     }
   }
