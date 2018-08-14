@@ -26,13 +26,14 @@ export default ({
       })
       .then(response => {
         commit('setLoading', false)
-        console.log(response.data)
+        commit('setSuccess', response.data.message)
+        parent.$router.push('/signin')
       })
       .catch(myerror => {
-        let error = myerror.response
-        let errmessage = error.data.error.message
-        commit('setLoading', false)
-        commit('setError', errmessage)
+        if (myerror.response) {
+          commit('setLoading', false)
+          commit('setError', myerror.response.data.error.message)
+        }
       })
     },
     signUserIn ({commit}, payload) {
@@ -45,10 +46,8 @@ export default ({
         console.log(response.data.error)
       })
       .catch(myerror => {
-        let error = myerror.response
-        let errmessage = error.data.error.message
         commit('setLoading', false)
-        commit('setError', errmessage)
+        commit('setError', myerror.response.data.error.message)
       })
     }
   },

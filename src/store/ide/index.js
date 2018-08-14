@@ -13,8 +13,10 @@ export default ({
     clipped: true,
     drawer: false,
     fixed: false,
+    // Mostrar mensajes satisfactorios si lo requiere
+    success: null,
     // Mostrar errores si lo requiere
-    error: false,
+    error: null,
     // Mostrar elementos de carga si los requiere
     loading: false,
     // Barra de navegacion
@@ -72,12 +74,21 @@ export default ({
     setLoading (state, payload) {
       state.loading = payload
     },
+    setSuccess (state, payload) {
+      state.success = payload
+    },
     setError (state, payload) {
       state.error = payload
     },
     clearError (state) {
       state.error = null
+      state.success = null
+    },
+    clearSuccess (state) {
+      state.success = null
+      state.error = null
     }
+
   },
   actions: {
     showIDE ({commit}) {
@@ -101,8 +112,10 @@ export default ({
     },
     clearError ({commit}) {
       commit('clearError')
+    },
+    clearSuccess ({commit}) {
+      commit('clearSuccess')
     }
-
   },
   getters: {
     loading (state) {
@@ -110,6 +123,9 @@ export default ({
     },
     error (state) {
       return state.error
+    },
+    success (state) {
+      return state.success
     },
     getMenu (state) {
       return state.menu

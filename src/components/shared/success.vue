@@ -1,6 +1,6 @@
 <template>
-    <v-alert fixed fab transition="scale-transition" :value="true" type="error" dismissible @input="onClose" centered>
-        {{text}}
+    <v-alert fixed transition="scale-transition" :value="true" type="success" dismissible @input="onClose">
+       {{text}}
     </v-alert>
 </template>
 

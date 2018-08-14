@@ -1,17 +1,27 @@
 <template>
   <v-container>
+
+        <app-loading :loading="loading"></app-loading>
+
+
+    <v-layout row v-if="success">
+      <v-flex xs12 sm6 offset-sm3>
+        <app-success @dismissed="onDismissed" :text="success">
+        </app-success>
+      </v-flex>
+    </v-layout>
     <v-layout row v-if="error">
       <v-flex xs12 sm6 offset-sm3>
         <app-alert @dismissed="onDismissed" :text="error">
         </app-alert>
       </v-flex>
     </v-layout>
-    <v-layout row>
+    <v-layout row class="mt-3">
         <v-flex xs12 sm6 offset-sm3>
-          <v-card>
+          <v-card class="cardsilver elevation-16" hover raised>
             <v-card-text>
                 <v-container>
-                  <form @submit.prevent="onSignUp">
+                  <form @submit.prevent="onSignUp" autocomplete="off">
 
                     <v-layout row>
                       <v-flex xs12><center>
@@ -63,7 +73,7 @@
 </template>
 
 <script>
-
+// import * as easings from 'vuetify/es5/util/easing-patterns'
 export default {
   data () {
     return {
@@ -78,13 +88,16 @@ export default {
   },
   computed: {
     comparePasswords () {
-      return this.pass !== this.cpass ? 'Las Contraseñas no coinciden' : null
+      return ((this.pass !== this.cpass)) ? 'Las Contraseñas no coinciden' : null
     },
     validForm () {
       return !(this.user !== '' && this.email !== '' && this.pass !== '' && this.cpass !== '' && this.name !== '' && this.email !== '' && this.comparePasswords === null)
     },
     loading () {
       return this.$store.getters.loading
+    },
+    success () {
+      return this.$store.getters.success
     },
     error () {
       return this.$store.getters.error
@@ -98,6 +111,12 @@ export default {
       if (value !== null && value !== undefined) {
         this.$router.push('/')
       }
+    },
+    error () {
+      this.$vuetify.goTo(0, {duration: 1000, offset: 0, easing: 'easeInOutCubic'})
+    },
+    success () {
+      this.$vuetify.goTo(0, {duration: 1000, offset: 0, easing: 'easeInOutCubic'})
     }
   },
   methods: {
@@ -108,6 +127,10 @@ export default {
     onDismissed () {
       console.log('dismissed Alert')
       this.$store.dispatch('clearError')
+    },
+    onDismisseds () {
+      console.log('dismissed Alert success')
+      this.$store.dispatch('clearSuccess')
     }
   },
   created () {

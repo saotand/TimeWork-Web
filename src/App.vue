@@ -1,6 +1,8 @@
 <template>
   <v-app>
-    <v-navigation-drawer @input="alert('input')" :mini-variant="ideData.miniVariant" :clipped="ideData.clipped" v-model="ideData.drawer" enable-resize-watcher fixed app>
+    <preloading></preloading>
+    <span v-if="ideData.toolbarapp">
+    <v-navigation-drawer :mini-variant="ideData.miniVariant" :clipped="ideData.clipped" v-model="ideData.drawer" enable-resize-watcher fixed app>
       <v-list>
         <v-list-tile v-for="(item, i) in menu" :key="i" :to="item.url">
           <v-list-tile-action>
@@ -10,8 +12,9 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
+    </span>
 
-    <v-toolbar v-if="ideData.toolbarapp" app :clipped-left="ideData.clipped">
+    <v-toolbar class="silverbar" v-if="ideData.toolbarapp" app :clipped-left="ideData.clipped">
       <v-toolbar-side-icon @click.stop="swDrawer"></v-toolbar-side-icon>
       <div class="minispace">
       <v-btn icon @click.stop="swMinivariant" v-if="ideData.drawer">
@@ -39,6 +42,7 @@
     <v-content>
       <router-view/>
     </v-content>
+    <span v-if="ideData.toolbarapp">
     <v-navigation-drawer temporary clipped :right="ideData.right" v-model="ideData.rightDrawer" app >
       <v-list>
 
@@ -62,9 +66,16 @@
 
       </v-list>
     </v-navigation-drawer>
-    <v-footer :fixed="ideData.fixed" app>
-      <span>&copy; 2017</span>
-    </v-footer>
+    </span>
+<v-footer height="auto" dark>
+    <v-layout justify-center row wrap>
+      <v-flex app :fixed="ideData.fixed"  text-xs-center xs12>
+        &copy;2018 — <strong>Global Mining Trust</strong>
+      </v-flex>
+    </v-layout>
+  </v-footer>
+
+
   </v-app>
 </template>
 
@@ -111,9 +122,27 @@ export default {
 
 
 <style>
-.minispace{
-  width:30px;
-}
+  .cardsilver {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#dbd9d9+0,dbd9d9+6,eaeaea+14,dbd9d9+22,8e8e8e+100 */
+    background: rgb(219,217,217); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(219,217,217,1) 0%, rgba(219,217,217,1) 6%, rgba(234,234,234,1) 14%, rgba(219,217,217,1) 22%, rgba(142,142,142,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(219,217,217,1) 0%,rgba(219,217,217,1) 6%,rgba(234,234,234,1) 14%,rgba(219,217,217,1) 22%,rgba(142,142,142,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(219,217,217,1) 0%,rgba(219,217,217,1) 6%,rgba(234,234,234,1) 14%,rgba(219,217,217,1) 22%,rgba(142,142,142,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dbd9d9', endColorstr='#8e8e8e',GradientType=0 ); /* IE6-9 */
+  }
+
+  .silverbar {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f2f6f8+0,d8e1e7+50,b5c6d0+51,e0eff9+100;Grey+Gloss+%232 */
+    background: rgb(242,246,248); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 50%, rgba(181,198,208,1) 51%, rgba(224,239,249,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(242,246,248,1) 0%,rgba(216,225,231,1) 50%,rgba(181,198,208,1) 51%,rgba(224,239,249,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(242,246,248,1) 0%,rgba(216,225,231,1) 50%,rgba(181,198,208,1) 51%,rgba(224,239,249,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9',GradientType=0 ); /* IE6-9 */
+  }
+
+  .minispace{
+    width:30px;
+  }
 
  .custom-loader {
     animation: loader 1s infinite;

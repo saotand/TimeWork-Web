@@ -1,5 +1,12 @@
 <template>
   <v-container>
+    <app-loading :loading="loading"></app-loading>
+    <v-layout row v-if="success">
+      <v-flex xs12 sm6 offset-sm3>
+        <app-success @dismissed="onDismissed" :text="success">
+        </app-success>
+      </v-flex>
+    </v-layout>
     <v-layout row v-if="error">
       <v-flex xs12 sm6 offset-sm3>
         <app-alert @dismissed="onDismissed" :text="error">
@@ -7,12 +14,11 @@
       </v-flex>
     </v-layout>
     <v-layout row>
-        <v-flex xs12 sm6 offset-sm3>
-          <v-card>
+        <v-flex xs12 sm6 offset-sm3 class="mt-4">
+          <v-card class="cardsilver elevation-16">
             <v-card-text>
                 <v-container>
-                  <form @submit.prevent="onSignUp()">
-
+                  <form @submit.prevent="onSignUp()" autocomplete="off">
                     <v-layout row>
                       <v-flex xs12><center>
                         <img style="width:80%" src="@/assets/gmtlogo-1024x310.png">
@@ -66,6 +72,9 @@ export default {
   computed: {
     loading () {
       return this.$store.getters.loading
+    },
+    success () {
+      return this.$store.getters.success
     },
     error () {
       return this.$store.getters.error
