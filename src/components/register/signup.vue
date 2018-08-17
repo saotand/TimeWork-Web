@@ -110,7 +110,6 @@ export default {
     user (value) {
       if (value !== null && value !== undefined) {
         this.$router.push('/')
-        alert('redirected')
       }
     },
     error () {
@@ -118,6 +117,7 @@ export default {
     },
     success () {
       this.$vuetify.goTo(0, {duration: 1000, offset: 0, easing: 'easeInOutCubic'})
+      this.$router.push('/signin')
     }
   },
   methods: {
@@ -137,7 +137,6 @@ export default {
   created () {
     if (this.user) {
       this.$store.dispatch('showIDE')
-      this.$router.push('/')
     } else {
       this.$store.dispatch('hideIDE')
     }
