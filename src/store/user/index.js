@@ -3,11 +3,16 @@ Axios.defaults.baseURL = 'http://api.core'
 
 export default ({
   state: {
-    user: null
+    user: null,
+    token: null
+
   },
   mutations: {
     setUser (state, payload) {
       state.user = payload
+    },
+    setToken (state, payload) {
+      state.token = payload
     }
   },
   actions: {
@@ -42,18 +47,51 @@ export default ({
       commit('clearError')
       Axios.post('/login?format=json', logindata)
       .then(response => {
+        // Activar el token en la sesion
+        let token = response.data.data.token
+        // Colocar los datos de usuario en la sesion del sistema
+        let user = response.data.data.user
+
+        sessionStorage.setItem('token', token)
+        commit('setToken', token)
+        commit('setUser', user)
+
         commit('setLoading', false)
-        console.log(response.data.error)
       })
       .catch(myerror => {
         commit('setLoading', false)
         commit('setError', myerror.response.data.error.message)
       })
+    },
+    signOutUser ({commit}) {
+
+    },
+    setSesionUser (payload) {
+
+    },
+    unSetSesionUser (payload) {
+
     }
+
   },
   getters: {
-    account (state) {
+    user (state) {
       return state.user
+    },
+    token (state) {
+      return state.token
     }
   }
+
 })
+
+/*
+// Store
+localStorage.setItem("lastname", "Smith");
+// Retrieve
+document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+// Store
+sessionStorage.setItem("lastname", "Smith");
+// Retrieve
+document.getElementById("result").innerHTML = sessionStorage.getItem("lastname");
+*/

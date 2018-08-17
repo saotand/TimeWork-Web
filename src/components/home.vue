@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <img src="@/assets/applogo500.png" alt="Vuetify.js" class="mb-5">
+        <img src="@/assets/applogo500.png" alt="Timework" width="240px" class="mb-5">
         <blockquote>
           &#8220;Primero Resuelve el problema. Luego, Escribe el código.&#8221;
           <footer>

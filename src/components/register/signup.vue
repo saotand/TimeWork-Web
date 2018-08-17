@@ -102,14 +102,15 @@ export default {
     error () {
       return this.$store.getters.error
     },
-    account () {
+    user () {
       return this.$store.getters.account
     }
   },
   watch: {
-    account (value) {
+    user (value) {
       if (value !== null && value !== undefined) {
         this.$router.push('/')
+        alert('redirected')
       }
     },
     error () {
@@ -134,7 +135,12 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('hideIDE')
+    if (this.user) {
+      this.$store.dispatch('showIDE')
+      this.$router.push('/')
+    } else {
+      this.$store.dispatch('hideIDE')
+    }
   }
 }
 </script>

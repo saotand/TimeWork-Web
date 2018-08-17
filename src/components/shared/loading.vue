@@ -46,7 +46,7 @@
 <script>
   export default {
     props: {
-      loading: String
+      loading: Boolean
     },
     data () {
       return {

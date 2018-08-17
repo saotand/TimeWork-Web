@@ -6,6 +6,7 @@ import signin from '@/components/register/signin'
 import authguard from './authguard'
 import task from '@/components/task/task'
 import comment from '@/components/task/comment'
+import option from '@/components/options/options.vue'
 
 Vue.use(Router)
 
@@ -24,9 +25,15 @@ export default new Router({
       beforeEnter: authguard
     },
     {
-      path: '/comment',
+      path: '/comments',
       name: 'Comment',
       component: comment,
+      beforeEnter: authguard
+    },
+    {
+      path: '/options',
+      name: 'options',
+      component: option,
       beforeEnter: authguard
     },
     {

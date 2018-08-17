@@ -28,13 +28,13 @@
 
                     <v-layout row>
                       <v-flex xs12>
-                        <v-text-field name="usuario" label="Usuario" id="user" v-model="user" type="text" required></v-text-field>
+                        <v-text-field name="usuario" label="Usuario" id="user" v-model="uuser" type="text" required></v-text-field>
                       </v-flex>
                     </v-layout>
 
                     <v-layout row>
                       <v-flex xs12>
-                        <v-text-field name="pass" label="Contraseña" id="pass" v-model="pass" type="password" required></v-text-field>
+                        <v-text-field name="pass" label="Contraseña" id="pass" v-model="upass" type="password" required></v-text-field>
                       </v-flex>
                     </v-layout>
 
@@ -51,7 +51,6 @@
                             <v-btn block class="primary" to="/signup" left centered type="submit">Registrate</v-btn>
                         </v-flex>
                     </v-layout>
-
                   </form>
               </v-container>
           </v-card-text>
@@ -65,8 +64,8 @@
 export default {
   data () {
     return {
-      user: 'admin',
-      pass: 'tvxq1aca'
+      uuser: 'admin',
+      upass: 'tvxq1aca'
     }
   },
   computed: {
@@ -78,23 +77,36 @@ export default {
     },
     error () {
       return this.$store.getters.error
+    },
+    user () {
+      return this.$store.getters.user
+    }
+  },
+  watch: {
+    user (value) {
+      if (value !== null && value !== undefined) {
+        this.$router.push('/')
+      }
     }
   },
   methods: {
     onSignUp () {
       // Vuex
-      let userdata = { user: this.user, pass: this.pass }
-      console.log(userdata)
+      let userdata = { user: this.uuser, pass: this.upass }
       this.$store.dispatch('signUserIn', userdata)
     },
     onDismissed () {
-      console.log('dismissed Alert')
       this.$store.dispatch('clearError')
     }
   },
   mounted () {},
   created () {
-    this.$store.dispatch('hideIDE')
+    if (this.user) {
+      this.$store.dispatch('showIDE')
+      this.$router.push('/')
+    } else {
+      this.$store.dispatch('hideIDE')
+    }
   }
 }
 </script>

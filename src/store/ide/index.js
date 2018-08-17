@@ -36,6 +36,29 @@ export default ({
         url: '/signup'
       }
     ],
+    menuOnline: [
+      {
+        icon: 'account_circle',
+        title: 'Escritorio',
+        url: '/'
+      },
+      {
+        icon: 'work',
+        title: 'Tareas',
+        url: '/tasks'
+      },
+      {
+        icon: 'comment',
+        title: 'Comentarios',
+        url: '/comments'
+      },
+      {
+        icon: 'settings',
+        title: 'Opciones',
+        url: '/options'
+      }
+
+    ],
     // Menu Lateral
     menur: [
       {
@@ -129,6 +152,9 @@ export default ({
     },
     getMenu (state) {
       return state.menu
+    },
+    getMenuOnline (state) {
+      return state.menuOnline
     },
     getIDEdata (state) {
       let menu = {

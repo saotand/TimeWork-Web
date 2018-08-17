@@ -1,7 +1,6 @@
 <template>
   <v-app>
-    <preloading></preloading>
-    <span v-if="ideData.toolbarapp">
+    <span v-if="userIsAuthenticated">
     <v-navigation-drawer :mini-variant="ideData.miniVariant" :clipped="ideData.clipped" v-model="ideData.drawer" enable-resize-watcher fixed app>
       <v-list>
         <v-list-tile v-for="(item, i) in menu" :key="i" :to="item.url">
@@ -14,7 +13,7 @@
     </v-navigation-drawer>
     </span>
 
-    <v-toolbar class="silverbar" v-if="ideData.toolbarapp" app :clipped-left="ideData.clipped">
+    <v-toolbar class="silverbar" v-if="userIsAuthenticated" app :clipped-left="ideData.clipped">
       <v-toolbar-side-icon @click.stop="swDrawer"></v-toolbar-side-icon>
       <div class="minispace">
       <v-btn icon @click.stop="swMinivariant" v-if="ideData.drawer">
@@ -29,11 +28,12 @@
       <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>remove</v-icon>
       </v-btn>-->
-      <v-toolbar-title>
+      <router-link to="/" tag="div">
+      <v-toolbar-title  >
         <v-toolbar-side-icon big>
           <img src="@/assets/logo_title.png" width="100%">
         </v-toolbar-side-icon> {{ideData.title}}
-      </v-toolbar-title>
+      </v-toolbar-title></router-link>
       <v-spacer></v-spacer>
       <v-btn flat fab centered small="" @click.stop="toggleRightDrawer">
           <img src="@/assets/ologo.png" width="100%">
@@ -42,7 +42,7 @@
     <v-content>
       <router-view/>
     </v-content>
-    <span v-if="ideData.toolbarapp">
+    <span v-if="userIsAuthenticated">
     <v-navigation-drawer temporary clipped :right="ideData.right" v-model="ideData.rightDrawer" app >
       <v-list>
 
@@ -64,6 +64,13 @@
           <v-list-tile-title>{{itemr.title}}</v-list-tile-title>
         </v-list-tile>
 
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>power_settings_new</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>Cerrar Sesion</v-list-tile-title>
+        </v-list-tile>
+
       </v-list>
     </v-navigation-drawer>
     </span>
@@ -74,8 +81,6 @@
       </v-flex>
     </v-layout>
   </v-footer>
-
-
   </v-app>
 </template>
 
@@ -91,13 +96,21 @@ export default {
   },
   computed: {
     menu () {
-      return this.$store.getters.getMenu
+      if (this.userIsAuthenticated) {
+        console.log(this.user)
+        return this.$store.getters.getMenuOnline
+      } else {
+        return this.$store.getters.getMenu
+      }
     },
     ideData () {
       return this.$store.getters.getIDEdata
     },
     userIsAuthenticated () {
       return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+    },
+    user () {
+      return this.$store.getters.user
     }
   },
   methods: {
@@ -115,6 +128,9 @@ export default {
     toggleRightDrawer () {
       this.$store.dispatch('toggleRDrawer')
     }
+  },
+  created () {
+
   }
 
 }
