@@ -5,6 +5,7 @@
         <img src="@/assets/applogo500.png" alt="Timework" width="240px" class="mb-5">
         <blockquote>
           &#8220;Primero Resuelve el problema. Luego, Escribe el código.&#8221;
+
           <footer>
             <small>
               <em>&mdash;John Johnson</em>
@@ -13,6 +14,8 @@
         </blockquote>
       </v-layout>
     </v-slide-y-transition>
+    <br><br><br>
+    <app-user-profile></app-user-profile>
   </v-container>
 </template>
 
@@ -20,9 +23,14 @@
 export default {
   data () {
     return {
-
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.getters.user
     }
   }
+
 }
 </script>
 

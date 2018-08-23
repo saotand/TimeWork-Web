@@ -32,7 +32,7 @@
 
                     <v-layout row>
                       <v-flex xs12>
-                        <v-text-field name="user" label="Usuario" id="user" v-model="user" type="text" required></v-text-field>
+                        <v-text-field name="username" label="Usuario" id="usuario" v-model="username" type="text" required></v-text-field>
                       </v-flex>
                     </v-layout>
 
@@ -62,7 +62,6 @@
                           <v-btn to="/signin" block class="success">Iniciar Sesion</v-btn>
                         </v-flex>
                     </v-layout>
-
                   </form>
               </v-container>
           </v-card-text>
@@ -77,7 +76,7 @@
 export default {
   data () {
     return {
-      user: 'userdemo',
+      username: 'userdemo',
       email: 'email@demo.com',
       pass: 'd0708aca',
       cpass: 'd0708aca',
@@ -122,15 +121,13 @@ export default {
   },
   methods: {
     onSignUp () {
-      let newuserdata = { user: this.user, email: this.email, pass: this.pass, name: this.name, last: this.last, birth: this.birth }
+      let newuserdata = { user: this.username, email: this.email, pass: this.pass, name: this.name, last: this.last, birth: this.birth }
       this.$store.dispatch('signUserUp', newuserdata)
     },
     onDismissed () {
-      console.log('dismissed Alert')
       this.$store.dispatch('clearError')
     },
     onDismisseds () {
-      console.log('dismissed Alert success')
       this.$store.dispatch('clearSuccess')
     }
   },

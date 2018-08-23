@@ -81,6 +81,7 @@
       </v-flex>
     </v-layout>
   </v-footer>
+  <span @SessionExpired="errorSesion($event)"></span>
   </v-app>
 </template>
 
@@ -127,10 +128,13 @@ export default {
     },
     toggleRightDrawer () {
       this.$store.dispatch('toggleRDrawer')
+    },
+    errorSesion (event) {
+      alert('event')
     }
   },
   created () {
-
+    // alert('done app.vue')
   }
 
 }

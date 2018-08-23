@@ -11,6 +11,7 @@ import { store } from './store'
 import AlertCmp from './components/shared/alert'
 import successCmp from './components/shared/success'
 import loadingCmp from './components/shared/loading'
+import profilecmp from './components/user/custom/profile'
 
 Vue.use(VuePreload)
 // with options
@@ -25,6 +26,9 @@ Vue.use(VuePreload, {
     console.log('end')
   }
 })
+
+// Default URL para consultas en http
+Axios.defaults.baseURL = 'http://api.core'
 
 // Tema personalizado
 Vue.use(Vuetify, { theme: {
@@ -43,6 +47,7 @@ Vue.use(Vuex, Axios)
 Vue.component('app-alert', AlertCmp)
 Vue.component('app-success', successCmp)
 Vue.component('app-loading', loadingCmp)
+Vue.component('app-user-profile', profilecmp)
 
 // Declaracion del objeto VUE
 /* eslint-disable no-new */
@@ -50,5 +55,8 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  created () {
+
+  }
 })

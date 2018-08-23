@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container >
     <app-loading :loading="loading"></app-loading>
     <v-layout row v-if="success">
       <v-flex xs12 sm6 offset-sm3>
@@ -13,7 +13,7 @@
         </app-alert>
       </v-flex>
     </v-layout>
-    <v-layout row>
+    <v-layout row >
         <v-flex xs12 sm6 offset-sm3 class="mt-4">
           <v-card class="cardsilver elevation-16">
             <v-card-text>
@@ -53,11 +53,16 @@
                     </v-layout>
                   </form>
               </v-container>
+
+
+
           </v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
+
   </v-container>
+
 </template>
 
 <script>
@@ -80,6 +85,9 @@ export default {
     },
     user () {
       return this.$store.getters.user
+    },
+    tokenizer () {
+      return sessionStorage.getItem('token')
     }
   },
   watch: {
@@ -99,7 +107,9 @@ export default {
       this.$store.dispatch('clearError')
     }
   },
-  mounted () {},
+  mounted () {
+    this.$store.dispatch('autosignin')
+  },
   created () {
     if (this.user) {
       this.$store.dispatch('showIDE')

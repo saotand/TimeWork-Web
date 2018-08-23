@@ -51,17 +51,40 @@ export default ({
         let token = response.data.data.token
         // Colocar los datos de usuario en la sesion del sistema
         let user = response.data.data.user
-
         sessionStorage.setItem('token', token)
         commit('setToken', token)
         commit('setUser', user)
-
         commit('setLoading', false)
       })
       .catch(myerror => {
         commit('setLoading', false)
         commit('setError', myerror.response.data.error.message)
       })
+    },
+    autosignin ({commit}) {
+      let token = sessionStorage.getItem('token')
+      if (token) {
+        commit('setLoading', true)
+        Axios.post('/autoload?format=json', null, {headers: { 'Authorization': token }})
+        .then(
+          response => {
+            let user = response.data.data
+            commit('setUser', user)
+            // this.$store.dispatch('autosignin', user)
+            commit('setLoading', false)
+          })
+        .catch(
+          response => {
+            /*
+            let error = response.response.data.error
+            console.log(error)
+            */
+            commit('setError', 'La sesion ha expirado')
+            commit('setLoading', false)
+            sessionStorage.removeItem('token')
+          }
+        )
+      }
     },
     signOutUser ({commit}) {
 
